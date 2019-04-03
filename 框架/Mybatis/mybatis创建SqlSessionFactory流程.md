@@ -2,10 +2,11 @@
 
 ```java
 @BeforeAll
-  static void setup() throws Exception {
+static void setup() throws Exception {
     createBlogDataSource();
     final String resource = "org/apache/ibatis/builder/MapperConfig.xml";
     final Reader reader = Resources.getResourceAsReader(resource);
+    //创建SqlSessionFactory
     SqlSessionFactory sqlMapper = new SqlSessionFactoryBuilder().build(reader);
 }
 ```
@@ -36,7 +37,7 @@ public SqlSessionFactory build(Reader reader, String environment, Properties pro
 }
 ```
 
-build 方法中创建 XMLConfigBuilder 对象，然后调用 XMLConfigBuilder 对象的 parse 方法，parse 方法的返回一个 Configuration 类型，传入 SqlSessionFactoryBuilder 的 build 重载方法，返回一个DefaultSqlSessionFactory 对象。
+build 方法中创建 XMLConfigBuilder 对象，然后调用 XMLConfigBuilder 对象的 parse 方法，parse 方法的返回一个 Configuration 类型，传入 SqlSessionFactoryBuilder 的 build 重载方法，返回一个DefaultSqlSessionFactory 对象，如下：
 
 ```java
 public SqlSessionFactory build(Configuration config) {
@@ -123,7 +124,7 @@ private void mapperElement(XNode parent) throws Exception {
 }
 ```
 
-mapperElement 方法内部读取 <mappers> 节点下的每个 <mapper> 节点信息，然后调用 XMLMapperBuilder 的 parse 方法进行 mapper 的创建工作。
+mapperElement 方法内部读取 <mappers> 节点下的每个 <mapper> 节点信息，然后调用 XMLMapperBuilder 的 parse 方法进行 mapper 的解析工作。
 
 
 
