@@ -4,9 +4,11 @@
 @BeforeAll
 static void setup() throws Exception {
     createBlogDataSource();
+    //mybatis配置文件路径
     final String resource = "org/apache/ibatis/builder/MapperConfig.xml";
+    //使用mybatis内置工具类获取Reader对象
     final Reader reader = Resources.getResourceAsReader(resource);
-    //创建SqlSessionFactory
+    //创建SqlSessionFactory，传入reader
     SqlSessionFactory sqlMapper = new SqlSessionFactoryBuilder().build(reader);
 }
 ```
@@ -22,7 +24,9 @@ static void setup() throws Exception {
 ```java
 public SqlSessionFactory build(Reader reader, String environment, Properties properties) {
     try {
+      //创建XMLConfigBuilder对象，传入reader, environment, properties参数
       XMLConfigBuilder parser = new XMLConfigBuilder(reader, environment, properties);
+      //调用build方法生成SqlSessionFactory
       return build(parser.parse());
     } catch (Exception e) {
       throw ExceptionFactory.wrapException("Error building SqlSession.", e);
@@ -37,7 +41,7 @@ public SqlSessionFactory build(Reader reader, String environment, Properties pro
 }
 ```
 
-build 方法中创建 XMLConfigBuilder 对象，然后调用 XMLConfigBuilder 对象的 parse 方法，parse 方法的返回一个 Configuration 类型，传入 SqlSessionFactoryBuilder 的 build 重载方法，返回一个DefaultSqlSessionFactory 对象，如下：
+build 方法中创建 XMLConfigBuilder 对象，然后调用 XMLConfigBuilder 对象的 parse 方法，parse 方法的返回一个 Configuration 类型，传入 SqlSessionFactoryBuilder 的 build 重载方法，返回DefaultSqlSessionFactory 对象，如下：
 
 ```java
 public SqlSessionFactory build(Configuration config) {
