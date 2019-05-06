@@ -8,7 +8,7 @@
 
 ​	Error和RuntimeException及其子类成为未检查异常（unchecked），其它异常成为已检查异常（checked）
 
-![](images\Java异常\1.jpg)
+![](images/Java异常/1.jpg)
 
 #### 2）Error
 
