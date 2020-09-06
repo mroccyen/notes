@@ -41,13 +41,13 @@
 
 #### direct
 
-![](images\direct.png)
+![](images/direct.png)
 
 - 消息中的（routing key）路由键和binding中的绑定的路由键一致，交换机将消息发送到对应的队列中
 
 #### fanout
 
-![](images\fanout.png)
+![](images/fanout.png)
 
 - 不处理路由键
 - 消息发送到绑定到交换机上的队列
@@ -55,7 +55,7 @@
 
 #### topic
 
-![](images\topic.png)
+![](images/topic.png)
 
 - topic 交换器通过模式匹配分配消息的路由键属性，将路由键和某个模式进行匹配，此时队列需要绑定到一个模式上。它将路由键和绑定键的字符串切分成单词，这些单词之间用点隔开。它同样也会识别两个通配符：符号“#”和符号“*”。#匹配0个或多个单词，*匹配不多不少一个单词
 
