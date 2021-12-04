@@ -1,8 +1,8 @@
 ### .ibd文件
 
 - 数据库中表数据的**物理存储**文件
-- innodb_file_per_table=true，每个表一个单独存储一个.ibd文件
-- innodb_file_per_table=false，所有Table的数据放入同一个.ibd文件中，这样有问题：在多表场景中，在删除表之后回收空间等操作中会带来很大的不便
+- innodb_file_per_table=ON，每个表一个单独存储一个.ibd文件
+- innodb_file_per_table=OFF，所有Table的数据放入同一个.ibd文件中，这样有问题：在多表场景中，在删除表之后回收空间等操作中会带来很大的不便
 
 ### TableSpace（表空间）
 
@@ -10,12 +10,27 @@
 
 ### .ibd文件结构
 
-.ibd文件为了把一定数量的Page整合为一个Extent，默认是64个16KB（page大小的默认值）的Page（共1M），而多个Extent又构成了一个Segment，默认一个Tablespace的文件结构如图所示：
-
 ![](images/表空间文件结构.png)
 
+.ibd文件为了把一定数量的Page整合为一个Extent，默认是64个16KB（page大小的默认值16KB）的Page（共1M），而多个Extent又构成了一个Segment。
 其中，Segment可以简单理解为是一个逻辑的概念，在每个Tablespace创建之初，就会初始化两个Segment，其中Leaf node
 segment可以理解为InnoDB中的INode，而Extent是一个物理概念，每次Btree的扩容都是以Extent为单位来扩容的，默认一次扩容不超过4个Extent。
+
+#### segment
+
+- 表空间下一级称为segment，segment与数据库中的索引相映射
+- 每个索引对应两个segment，管理叶子节点的segment和管理非叶子节点segment
+- Innodb内部使用**INODE**来描述segment
+
+#### extent
+
+- segment的下一级是extent，extent代表一组连续的page，默认为64个page，大小1MB
+- extent的作用是提高page分配效率，批量分配在效率上总是优于离散、单一的page分配，另外在数据连续性方面也更佳，segment扩容时以extent为单位分配
+- Innodb内部使用**XDES**来描述extent
+
+#### page
+
+- page是表空间数据存储的基本单位，默认值时16KB
 
 ### .ibd文件中的page0、page1、page2、page3
 
