@@ -9,6 +9,7 @@
 -  Advanced Message Queue Protocol，高级消息队列
 - 应用层协议，面向消息
 
+
 ### 特点
 
 - 可靠性： RabbitMQ 使用一些机制来保证可靠性，如持久化、传输确认、发布确认 
