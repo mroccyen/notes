@@ -1,5 +1,6 @@
 ### 可靠性
 
+
 ![](E:\01-github\myprofile\notes\消息队列\RabbitMQ\images\lc.jpg)
 
 - ①代表消息从生产者发送到Exchange

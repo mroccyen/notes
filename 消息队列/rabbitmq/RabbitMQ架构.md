@@ -1,5 +1,6 @@
 ## RabbitMQ架构
 
+
 ### 介绍
 
 - ​	erlang语言开发的AMQP的开源实现
