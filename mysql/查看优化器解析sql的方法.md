@@ -1,3 +1,4 @@
+### 一、网上使用方法
 #### 1. 查看优化器状态
    show variables like 'optimizer_trace';
 #### 2. 会话级别临时开启
@@ -13,3 +14,16 @@
    > 注意：（如果没有控制台权限，或直接交由运维，让他把该 trace 文件，输出给你就行了。）。
 
 **注意：不设置优化器最大容量的话，可能会导致优化器返回的结果不全。**
+
+### 二、msyql官网使用方式
+``` sql
+# Turn tracing on (it's off by default):
+SET optimizer_trace="enabled=on";
+SELECT ...; # your query here
+SELECT * FROM INFORMATION_SCHEMA.OPTIMIZER_TRACE;
+# possibly more queries...
+# When done with tracing, disable it:
+SET optimizer_trace="enabled=off";
+```
+
+A session can trace only statements which it executes; it cannot see a trace of another session.
